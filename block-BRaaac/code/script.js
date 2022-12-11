@@ -18,15 +18,13 @@ let allMovies = [
 function elm(type, attr = {}, ...children) {
   let element = document.createElement(type);
   for (let key in attr) {
-    if (
-      key.startsWith('data-') ||
-      key == 'for' ||
-      key == 'type' ||
-      key == 'id'
-    ) {
+    if (key.startsWith('data-') || key == 'for') {
       element.setAttribute(key, attr[key]);
+    } else if (key.startsWith('on')) {
+      let eventType = key.replace('on', '');
+      element.addEventListener(eventType, attr[key]);
     } else {
-      element.key = attr[key];
+      element[key] = attr[key];
     }
   }
   children.forEach((child) => {
@@ -84,9 +82,14 @@ function createUI(movies = []) {
     let li = elm(
       'li',
       {},
-      elm('input', { type: 'checkbox', checked: movie.watched, id: i }),
+      elm('input', {
+        type: 'checkbox',
+        checked: movie.watched,
+        id: i,
+        onclick: handleChange,
+      }),
       elm('label', { for: i }, movie.name),
-      elm('span', { 'data-id': i }, 'Remove')
+      elm('span', { 'data-id': i, onclick: deleteMovie }, 'Remove')
     );
     rootElm.append(li);
   });
