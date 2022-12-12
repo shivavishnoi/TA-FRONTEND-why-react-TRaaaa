@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies List</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Movie Watch List</h1>
+    <input type="text" class="root-inp" placeholder="Enter Movie Name">
+    <section class="root-sec">
+      <ul>
+        <!-- <li>
+          <input type="checkbox" name="status" id="movie">
+          <label for="movie">Movie 1</label>
+          <span>(Remove)</span>
+        </li>
+        <li>
+          <input type="checkbox" name="status" id="movie">
+          <label for="movie">Movie 1</label>
+          <span>(Remove)</span>
+        </li>
+        <li>
+          <input type="checkbox" name="status" id="movie">
+          <label for="movie">Movie 1</label>
+          <span>(Remove)</span> -->
+        </li>
+      </ul>
+    </section>
+  </main>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    let input = document.querySelector('input[type=text]');
+    let rootElm = document.querySelector('ul');
+
+let allMovies = [
+  {
+    name: 'Movie 1',
+    watched: false,
+  },
+  {
+    name: 'Movie 2',
+    watched: true,
+  },
+  {
+    name: 'Movie 3',
+    watched: false,
+  },
+];
+
+//add movie
+function addMovie(event) {
+  if (event.keyCode === 13) {
+    allMovies.push({
+      name: event.target.value,
+      watched: false,
+    });
+    event.target.value = '';
+    createUI(allMovies);
+  }
+}
+input.addEventListener('keyup', addMovie);
+
+function deleteMovie(event) {
+  let id = event.target.dataset.id;
+  allMovies.splice(id, 1);
+  createUI(allMovies);
+}
+function handleChange(event) {
+  let id = event.target.id;
+  allMovies[id].watched = !allMovies[id].watched;
+  createUI(allMovies);
+}
+// <li>
+//           <input type="checkbox" name="status" id="movie">
+//           <label for="movie">Movie 1</label>
+//           <span>(Remove)</span>
+//         </li>
+function createUI(movies = []) {
+  // rootElm.innerHTML = ''; React does this step itself
+  let ui = movies.map((movie, index) => {
+     return <li>
+      <input type="checkbox" id={index} onChange={handleChange} />
+      <label htmlFor={index}>{movie.name}</label>
+      <span data-id = {index} onClick={deleteMovie}>Remove</span>
+      </li>
+  });
+  ReactDOM.render(ui, rootElm);
+}
+createUI(allMovies);
+</script>
+</body>
+
+</html>
