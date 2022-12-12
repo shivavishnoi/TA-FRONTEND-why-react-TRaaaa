@@ -2,18 +2,18 @@ let input = document.querySelector('input[type=text]');
 let rootElm = document.querySelector('ul');
 
 let allMovies = [
-  // {
-  //   name: 'Movie 1',
-  //   watched: false,
-  // },
-  // {
-  //   name: 'Movie 2',
-  //   watched: true,
-  // },
-  // {
-  //   name: 'Movie 3',
-  //   watched: false,
-  // },
+  {
+    name: 'Movie 1',
+    watched: false,
+  },
+  {
+    name: 'Movie 2',
+    watched: true,
+  },
+  {
+    name: 'Movie 3',
+    watched: false,
+  },
 ];
 // function elm(type, attr = {}, ...children) {
 //   let element = document.createElement(type);
@@ -61,23 +61,32 @@ function handleChange(event) {
   allMovies[id].watched = !allMovies[id].watched;
   createUI(allMovies);
 }
+// <li>
+//           <input type="checkbox" name="status" id="movie">
+//           <label for="movie">Movie 1</label>
+//           <span>(Remove)</span>
+//         </li>
 function createUI(movies = []) {
-  // rootElm.innerHTML = '';
-  let ui = movies.map((movie, i) => {
+  // rootElm.innerHTML = ''; React does this step itself
+  let ui = movies.map((movie, index) => {
     let li = React.createElement(
       'li',
-      {},
+      null,
       React.createElement('input', {
         type: 'checkbox',
         checked: movie.watched,
-        id: i,
-        // onclick: handleChange,
+        id: index,
+        onChange: handleChange,
       }),
-      React.createElement('label', { for: i }, movie.name),
-      React.createElement('span', { 'data-id': i }, 'Remove')
+      React.createElement('label', { htmlFor: index }, movie.name),
+      React.createElement(
+        'span',
+        { 'data-id': index, onClick: deleteMovie },
+        'Remove'
+      )
     );
     return li;
-    // rootElm.append(li);
   });
-  ReactDOM.render(rootElm, ui);
+  ReactDOM.render(ui, rootElm);
 }
+createUI(allMovies);
