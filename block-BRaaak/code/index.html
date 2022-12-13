@@ -51,28 +51,23 @@
     'https://techcrunch.com/wp-content/uploads/2019/07/GettyImages-846875220.jpg?w=1390&crop=1',
     },
     ];
-    let Card = (props)=>{
+    let Article = (props)=>{
       return (
         <>
-        <h1>{props.title}</h1>
-        <h4>{props.subTitle}</h4>
-        <p>{props.description}</p>
-        <span>{props.comments} </span>
+        <h1>{props.articleInfo.title}</h1>
+        <h4>{props.articleInfo.subTitle}</h4>
+        <p>{props.articleInfo.description}</p>
+        <span>{props.articleInfo.comments} </span>
         </>
       )
     }
-    let ui = articles.map((article)=>{
-      return (
-        <>
-        <Card title={article.title} />
-        <Card subTitle={article.subTitle} />
-        <Card description={article.description} />
-        <Card comments={article.comments} />
-        
-        </>
-      )
-    })
-    ReactDOM.render(ui, document.getElementById("root"))
+    function Articles(){
+      return articles.map((article)=>{
+        return <Article articleInfo={article} />
+      })
+    }
+
+    ReactDOM.render(<Articles />, document.getElementById("root"))
    </script>
 </body>
 
