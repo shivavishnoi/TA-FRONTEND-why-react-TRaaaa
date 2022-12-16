@@ -1,0 +1,21 @@
+.button {
+   color: blue;
+}
+.button--primary{
+  background-color: aqua;
+}
+.button--secondary{
+  background-color: red;
+}
+.button--tertiary{
+  background-color: green;
+}
+.button--small{
+  padding: 0.6rem;
+}
+.button--large{
+  padding: 1rem;
+}
+.button--medium{
+  padding: 0.8rem;
+}
